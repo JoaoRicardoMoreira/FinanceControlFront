@@ -1,0 +1,63 @@
+<section class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
+  <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+    <span class="bg-rose-500/20 text-rose-400 p-1.5 rounded-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </span>
+    Novo Gasto
+  </h3>
+  <form class="space-y-4" (ngSubmit)="submit()">
+    <div>
+      <label class="block text-sm text-gray-400 mb-1">Descrição</label>
+      <input
+        type="text"
+        [(ngModel)]="form.desc"
+        name="desc"
+        required
+        class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-rose-500 outline-none transition"
+      />
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm text-gray-400 mb-1">Valor (R$)</label>
+        <input
+          type="number"
+          name="valor"
+          [(ngModel)]="form.valor"
+          step="0.01"
+          required
+          class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-rose-500 outline-none transition"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-400 mb-1">Data</label>
+        <input
+          type="date"
+          name="data"
+          [(ngModel)]="form.data"
+          required
+          class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-rose-500 outline-none transition text-sm"
+        />
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm text-gray-400 mb-1">Categoria</label>
+      <select
+        name="categoria"
+        [(ngModel)]="form.categoria"
+        class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-rose-500 outline-none transition"
+      >
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+    <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-medium py-2 rounded-lg transition mt-2">
+      Adicionar Gasto
+    </button>
+  </form>
+</section>
+

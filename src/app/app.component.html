@@ -1,0 +1,67 @@
+<div class="bg-gray-900 min-h-screen text-gray-100">
+  <div class="container mx-auto px-4 py-8 max-w-6xl" *ngIf="(view$ | async) as view">
+    <app-header-bar
+      [month]="view.filters.month"
+      [year]="view.filters.year"
+      [yearOptions]="yearOptions"
+      (monthChange)="changeMonth($event)"
+      (yearChange)="changeYear($event)"
+      (openRecorrentes)="openRecurrenceModal()"
+      (openRenda)="openRendaModal()"
+      (exportCsv)="exportCsv(view.state.rendas, view.state.gastos)"
+      (importCsv)="importCsv($event)"
+    ></app-header-bar>
+
+    <app-summary-cards
+      [saldo]="view.summary.saldo"
+      [totalRenda]="view.summary.totalRenda"
+      [totalGasto]="view.summary.totalGasto"
+      [metaGlobal]="view.summary.metaGlobal"
+    ></app-summary-cards>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-1 space-y-6">
+        <app-expense-form (addExpense)="onAddExpense($event)"></app-expense-form>
+        <app-metas
+          [metas]="view.state.metas"
+          [gastos]="view.filtered.gastos"
+          (editMeta)="openMetaModal($event, view.state.metas[$event])"
+        ></app-metas>
+      </div>
+
+      <div class="lg:col-span-2 space-y-8">
+        <app-charts-panel
+          [categories]="view.charts.categories"
+          [gastosPorCat]="view.charts.gastosPorCat"
+          [metasPorCat]="view.charts.metasPorCat"
+        ></app-charts-panel>
+
+        <app-history-tabs
+          [gastos]="view.filtered.gastos"
+          [rendas]="view.filtered.rendas"
+          (deleteGasto)="deleteItem('gastos', $event)"
+          (deleteRenda)="deleteItem('rendas', $event)"
+        ></app-history-tabs>
+      </div>
+    </div>
+  </div>
+
+  <app-renda-modal [open]="rendaModalOpen" (close)="closeModals()" (submitRenda)="onAddIncome($event)"></app-renda-modal>
+
+  <app-recurrence-modal
+    [open]="recurrenceModalOpen"
+    [recorrentes]="(recorrentes$ | async) ?? []"
+    (close)="closeModals()"
+    (save)="onAddRecurrence($event)"
+    (delete)="deleteRecurrence($event)"
+  ></app-recurrence-modal>
+
+  <app-meta-modal
+    [open]="metaModalOpen"
+    [category]="metaCategory"
+    [currentValue]="metaCurrentValue"
+    (close)="closeModals()"
+    (save)="saveMeta($event)"
+  ></app-meta-modal>
+</div>
+

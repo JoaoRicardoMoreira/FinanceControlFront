@@ -1,0 +1,101 @@
+<div *ngIf="open" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-2xl font-bold">Transações Recorrentes</h3>
+      <button (click)="close.emit()" class="text-gray-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <form class="bg-gray-700/30 p-4 rounded-xl border border-gray-600 mb-8 space-y-4" (ngSubmit)="submit()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Tipo</label>
+          <select
+            [(ngModel)]="form.type"
+            name="recType"
+            class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-purple-500"
+            (ngModelChange)="onTypeChange($event)"
+          >
+            <option value="gasto">Gasto Recorrente</option>
+            <option value="renda">Renda Recorrente</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Descrição</label>
+          <input
+            type="text"
+            [(ngModel)]="form.desc"
+            name="recDesc"
+            required
+            placeholder="Ex: Aluguel, Internet, Salário..."
+            class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Valor (R$)</label>
+          <input
+            type="number"
+            [(ngModel)]="form.valor"
+            name="recValor"
+            step="0.01"
+            required
+            class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Dia do Vencimento</label>
+          <input
+            type="number"
+            [(ngModel)]="form.dia"
+            name="recDia"
+            min="1"
+            max="31"
+            required
+            class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+        <div *ngIf="form.type === 'gasto'">
+          <label class="block text-sm text-gray-400 mb-1">Categoria</label>
+          <select
+            [(ngModel)]="form.categoria"
+            name="recCat"
+            class="w-full bg-gray-700 border-gray-600 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg transition">
+        Salvar Recorrência
+      </button>
+    </form>
+
+    <div class="space-y-4">
+      <h4 class="text-sm font-bold text-gray-400 uppercase tracking-wider">Recorrências Ativas</h4>
+      <div class="space-y-2">
+        <div *ngFor="let rec of recorrentes; index as i" class="flex justify-between items-center bg-gray-700/50 p-3 rounded-lg border border-gray-600">
+          <div>
+            <p class="font-bold text-sm">
+              {{ rec.desc }} <span class="text-xs font-normal text-gray-400">({{ rec.type === 'gasto' ? 'Gasto' : 'Renda' }})</span>
+            </p>
+            <p class="text-xs text-gray-400">
+              Dia {{ rec.dia }} • {{ rec.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              <span *ngIf="rec.type === 'gasto'">• {{ rec.categoria }}</span>
+            </p>
+          </div>
+          <button (click)="delete.emit(i)" class="text-gray-500 hover:text-rose-500 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

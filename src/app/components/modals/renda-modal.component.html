@@ -1,0 +1,48 @@
+<div *ngIf="open" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 w-full max-w-md shadow-2xl">
+    <h3 class="text-2xl font-bold mb-4">Adicionar Renda</h3>
+    <form class="space-y-4" (ngSubmit)="submit()">
+      <div>
+        <label class="block text-sm text-gray-400 mb-1">Descrição</label>
+        <input
+          type="text"
+          [(ngModel)]="form.desc"
+          name="incomeDesc"
+          required
+          placeholder="Ex: Salário, 13º, Venda..."
+          class="w-full bg-gray-700 border-gray-600 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+        />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Valor (R$)</label>
+          <input
+            type="number"
+            [(ngModel)]="form.valor"
+            name="incomeValor"
+            step="0.01"
+            required
+            class="w-full bg-gray-700 border-gray-600 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition"
+          />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Data</label>
+          <input
+            type="date"
+            [(ngModel)]="form.data"
+            name="incomeData"
+            required
+            class="w-full bg-gray-700 border-gray-600 rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none transition text-sm"
+          />
+        </div>
+      </div>
+      <div class="flex gap-3 pt-4">
+        <button type="button" (click)="close.emit()" class="flex-1 bg-gray-700 hover:bg-gray-600 py-3 rounded-xl transition">Cancelar</button>
+        <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 py-3 rounded-xl font-bold transition">
+          Adicionar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
