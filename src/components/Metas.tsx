@@ -6,8 +6,10 @@ import { formatCurrency } from '@/utils/helpers';
 interface MetasProps {
   metas: MetaMap;
   gastos: Transaction[];
-  onEditMeta: (categoria: string) => void;
+  onEditMeta: (categoria: string, currentValue: number) => void;
 }
+
+import Card from '@/components/ui/Card';
 
 export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
   const gastosPorCategoria = (cat: string): number => {
@@ -17,9 +19,9 @@ export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
   };
 
   return (
-    <section className="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-      <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span className="bg-blue-500/20 text-blue-400 p-1.5 rounded-lg">
+    <Card className="p-6">
+      <h3 className="text-xl font-semibold mb-6 flex items-center gap-3 text-slate-100">
+        <span className="bg-blue-500/10 text-blue-400 p-2 rounded-lg border border-blue-500/20 shadow-[0_0_15px_-3px_rgba(59,130,246,0.3)]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -31,29 +33,29 @@ export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
         </span>
         Metas por Categoria
       </h3>
-      <div className="space-y-4">
+      <div className="space-y-6">
         {Object.entries(metas).map(([categoria, meta]) => {
           const gasto = gastosPorCategoria(categoria);
           const isOverBudget = gasto > meta && meta > 0;
           const progress = meta > 0 ? Math.min((gasto / meta) * 100, 100) : 0;
 
           return (
-            <div key={categoria} className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">{categoria}</span>
-                <div className="flex gap-2 items-center">
+            <div key={categoria} className="space-y-2 group">
+              <div className="flex justify-between text-sm items-center">
+                <span className="text-slate-300 font-medium">{categoria}</span>
+                <div className="flex gap-3 items-center">
                   <span
                     className={
                       isOverBudget
                         ? 'text-rose-400 font-medium'
-                        : 'text-gray-400 font-medium'
+                        : 'text-slate-400 font-medium'
                     }
                   >
-                    {formatCurrency(gasto)} / {formatCurrency(meta)}
+                    {formatCurrency(gasto)} <span className="text-slate-600">/</span> {formatCurrency(meta)}
                   </span>
                   <button
-                    onClick={() => onEditMeta(categoria)}
-                    className="text-gray-500 hover:text-white"
+                    onClick={() => onEditMeta(categoria, gasto)}
+                    className="text-slate-500 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-md"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -66,18 +68,20 @@ export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
                   </button>
                 </div>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-1.5">
+              <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden border border-white/5">
                 <div
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    isOverBudget ? 'bg-rose-500' : 'bg-emerald-500'
-                  }`}
+                  className={`h-full rounded-full transition-all duration-500 relative ${isOverBudget ? 'bg-rose-500' : 'bg-emerald-500'
+                    }`}
                   style={{ width: `${progress}%` }}
-                />
+                >
+                  {/* Glossy shine on bar */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent" />
+                </div>
               </div>
             </div>
           );
         })}
       </div>
-    </section>
+    </Card>
   );
 }

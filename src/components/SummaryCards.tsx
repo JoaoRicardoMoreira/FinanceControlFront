@@ -1,5 +1,6 @@
 'use client';
 
+import Card from '@/components/ui/Card';
 import { formatCurrency } from '@/utils/helpers';
 
 interface SummaryCardsProps {
@@ -22,26 +23,25 @@ export default function SummaryCards({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-        <p className="text-gray-400 text-sm mb-1">Saldo no Período</p>
-        <h2 className="text-3xl font-bold text-white">{formatCurrency(saldo)}</h2>
+      <Card className="p-6">
+        <p className="text-slate-400 text-sm mb-1">Saldo no Período</p>
+        <h2 className="text-3xl font-bold text-slate-100">{formatCurrency(saldo)}</h2>
         <div
-          className={`mt-2 text-xs font-medium px-2 py-1 rounded-full inline-block ${
-            saldo >= 0
-              ? 'bg-emerald-500/20 text-emerald-400'
-              : 'bg-rose-500/20 text-rose-400'
-          }`}
+          className={`mt-2 text-xs font-medium px-2 py-1 rounded-full inline-block ${saldo >= 0
+            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_-3px_rgba(16,185,129,0.3)]'
+            : 'bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-[0_0_10px_-3px_rgba(244,63,94,0.3)]'
+            }`}
         >
           {saldo >= 0 ? 'Saldo Positivo' : 'Saldo Negativo'}
         </div>
-      </div>
+      </Card>
 
-      <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-        <p className="text-gray-400 text-sm mb-1">Renda no Período</p>
+      <Card className="p-6">
+        <p className="text-slate-400 text-sm mb-1">Renda no Período</p>
         <h2 className="text-3xl font-bold text-emerald-400">{formatCurrency(totalRenda)}</h2>
         <button
           onClick={onOpenRenda}
-          className="mt-3 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm"
+          className="mt-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,20 +57,21 @@ export default function SummaryCards({
           </svg>
           Nova Renda
         </button>
-      </div>
+      </Card>
 
-      <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg">
-        <p className="text-gray-400 text-sm mb-1">Gasto vs Meta (Período)</p>
+      <Card className="p-6">
+        <p className="text-slate-400 text-sm mb-1">Gasto vs Meta (Período)</p>
         <h2 className="text-3xl font-bold text-rose-400">{formatCurrency(totalGasto)}</h2>
-        <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
+        <div className="w-full bg-white/5 rounded-full h-2 mt-3 border border-white/5 overflow-hidden">
           <div
-            className={`h-2 rounded-full transition-all duration-500 ${
-              isOverBudget ? 'bg-rose-500' : 'bg-emerald-500'
-            }`}
+            className={`h-full rounded-full transition-all duration-500 relative ${isOverBudget ? 'bg-rose-500' : 'bg-emerald-500'
+              }`}
             style={{ width: `${progress}%` }}
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent" />
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -5,8 +5,10 @@ import { useFinanceStore } from '@/store/financeStore';
 import Header from '@/components/Header';
 import SummaryCards from '@/components/SummaryCards';
 import ExpenseForm from '@/components/ExpenseForm';
-import Metas from '@/components/Metas';
+import Sidebar, { SidebarSection } from '@/components/Sidebar';
 import ChartsPanel from '@/components/ChartsPanel';
+import Metas from '@/components/Metas';
+import OpenFinancePlaceholder from '@/components/OpenFinancePlaceholder';
 import HistoryTabs from '@/components/HistoryTabs';
 import RendaModal from '@/components/modals/RendaModal';
 import RecurrenceModal from '@/components/modals/RecurrenceModal';
@@ -39,6 +41,7 @@ export default function Home() {
     const [metaModalOpen, setMetaModalOpen] = useState(false);
     const [metaCategory, setMetaCategory] = useState('');
     const [metaCurrentValue, setMetaCurrentValue] = useState(0);
+    const [activeSection, setActiveSection] = useState<SidebarSection>('dashboard');
 
     // Process recurrences on mount
     useEffect(() => {
@@ -150,52 +153,91 @@ export default function Home() {
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen text-gray-100">
-            <div className="container mx-auto px-4 py-8 max-w-6xl">
-                <Header
-                    month={filters.month}
-                    year={filters.year}
-                    yearOptions={yearOptions}
-                    onMonthChange={(month) => setFilters({ month })}
-                    onYearChange={(year) => setFilters({ year })}
-                    onOpenRecorrentes={() => setRecurrenceModalOpen(true)}
-                    onOpenRenda={() => setRendaModalOpen(true)}
-                    onExportCsv={handleExportCsv}
-                    onImportCsv={handleImportCsv}
-                />
+        <div className="flex min-h-screen text-slate-100">
+            {/* Sidebar */}
+            <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
 
-                <SummaryCards
-                    saldo={saldo}
-                    totalRenda={totalRenda}
-                    totalGasto={totalGasto}
-                    metaGlobal={metaGlobal}
-                    onOpenRenda={() => setRendaModalOpen(true)}
-                />
+            {/* Main Content */}
+            <div className="flex-1 overflow-x-hidden">
+                <div className="container mx-auto px-4 py-8 max-w-7xl">
+                    <Header
+                        month={filters.month}
+                        year={filters.year}
+                        yearOptions={yearOptions}
+                        onMonthChange={(month) => setFilters({ month })}
+                        onYearChange={(year) => setFilters({ year })}
+                        onOpenRecorrentes={() => setRecurrenceModalOpen(true)}
+                        onOpenRenda={() => setRendaModalOpen(true)}
+                        onExportCsv={handleExportCsv}
+                        onImportCsv={handleImportCsv}
+                    />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-1 space-y-6">
-                        <ExpenseForm onAddExpense={handleAddExpense} />
-                        <Metas
-                            metas={metas}
-                            gastos={filteredGastos}
-                            onEditMeta={handleOpenMetaModal}
-                        />
-                    </div>
+                    {/* DASHBOARD VIEW */}
+                    {activeSection === 'dashboard' && (
+                        <div className="space-y-8 animate-in fade-in duration-500">
+                            <SummaryCards
+                                saldo={saldo}
+                                totalRenda={totalRenda}
+                                totalGasto={totalGasto}
+                                metaGlobal={metaGlobal}
+                                onOpenRenda={() => setRendaModalOpen(true)}
+                            />
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <div className="lg:col-span-1 space-y-6">
+                                    <ExpenseForm onAddExpense={handleAddExpense} />
+                                </div>
+                                <div className="lg:col-span-2 space-y-8">
+                                    <HistoryTabs
+                                        gastos={filteredGastos}
+                                        rendas={filteredRendas}
+                                        onDeleteGasto={handleDeleteGasto}
+                                        onDeleteRenda={handleDeleteRenda}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
-                    <div className="lg:col-span-2 space-y-8">
-                        <ChartsPanel
-                            categories={chartData.categories}
-                            gastosPorCat={chartData.gastosPorCat}
-                            metasPorCat={chartData.metasPorCat}
-                        />
+                    {/* CHARTS VIEW */}
+                    {activeSection === 'graficos' && (
+                        <div className="space-y-6 animate-in fade-in duration-500">
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold text-slate-100">Gráficos</h2>
+                            </div>
+                            <ChartsPanel
+                                categories={chartData.categories}
+                                gastosPorCat={chartData.gastosPorCat}
+                                metasPorCat={chartData.metasPorCat}
+                            />
+                        </div>
+                    )}
 
-                        <HistoryTabs
-                            gastos={filteredGastos}
-                            rendas={filteredRendas}
-                            onDeleteGasto={handleDeleteGasto}
-                            onDeleteRenda={handleDeleteRenda}
-                        />
-                    </div>
+                    {/* METAS VIEW */}
+                    {activeSection === 'metas' && (
+                        <div className="space-y-6 animate-in fade-in duration-500">
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold text-slate-100">Metas</h2>
+                            </div>
+                            <Metas
+                                metas={metas}
+                                gastos={filteredGastos}
+                                onEditMeta={handleOpenMetaModal}
+                            />
+                        </div>
+                    )}
+
+                    {/* OPEN FINANCE VIEW */}
+                    {activeSection === 'openfinance' && (
+                        <div className="space-y-6 animate-in fade-in duration-500">
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold text-slate-100">Open Finance</h2>
+                                <span className="text-xs px-2 py-1 bg-amber-500/20 text-amber-400 rounded-full border border-amber-500/30 shadow-[0_0_10px_-2px_rgba(245,158,11,0.3)]">
+                                    Em breve
+                                </span>
+                            </div>
+                            <OpenFinancePlaceholder />
+                        </div>
+                    )}
                 </div>
             </div>
 

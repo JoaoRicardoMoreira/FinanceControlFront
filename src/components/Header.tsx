@@ -48,18 +48,18 @@ export default function Header({
   return (
     <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
       <div>
-        <h1 className="text-3xl font-bold text-emerald-400">Controle Financeiro</h1>
-        <p className="text-gray-400">Gerencie suas finanças de forma simples e eficiente</p>
+        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-500">Controle Financeiro</h1>
+        <p className="text-slate-400">Gerencie suas finanças de forma simples e eficiente</p>
       </div>
       <div className="flex flex-wrap justify-center gap-2">
-        <div className="flex bg-gray-800 p-1 rounded-lg border border-gray-700 mr-2">
+        <div className="flex bg-slate-900/40 p-1 rounded-lg border border-white/5 backdrop-blur-sm mr-2 shadow-inner">
           <select
             value={month}
             onChange={(e) => onMonthChange(Number(e.target.value))}
-            className="bg-transparent text-sm px-2 py-1 outline-none border-r border-gray-700"
+            className="bg-transparent text-sm px-2 py-1 outline-none border-r border-white/10 text-slate-200 cursor-pointer hover:text-white"
           >
             {MONTHS.map((m, i) => (
-              <option key={i} value={i + 1}>
+              <option key={i} value={i + 1} className="bg-slate-900 text-slate-200">
                 {m}
               </option>
             ))}
@@ -67,10 +67,10 @@ export default function Header({
           <select
             value={year}
             onChange={(e) => onYearChange(Number(e.target.value))}
-            className="bg-transparent text-sm px-2 py-1 outline-none"
+            className="bg-transparent text-sm px-2 py-1 outline-none text-slate-200 cursor-pointer hover:text-white"
           >
             {yearOptions.map((y) => (
-              <option key={y} value={y}>
+              <option key={y} value={y} className="bg-slate-900 text-slate-200">
                 {y}
               </option>
             ))}
@@ -78,7 +78,7 @@ export default function Header({
         </div>
         <button
           onClick={onOpenRecorrentes}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm"
+          className="bg-slate-800/50 hover:bg-slate-700/50 border border-white/5 text-slate-200 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm shadow-sm backdrop-blur-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function Header({
         </button>
         <button
           onClick={onExportCsv}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm"
+          className="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm shadow-[0_0_10px_-3px_rgba(59,130,246,0.3)] backdrop-blur-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@ export default function Header({
           </svg>
           Exportar
         </button>
-        <label className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm cursor-pointer">
+        <label className="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm cursor-pointer shadow-[0_0_10px_-3px_rgba(16,185,129,0.3)] backdrop-blur-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"

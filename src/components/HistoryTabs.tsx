@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Card from '@/components/ui/Card';
 import { Transaction } from '@/types';
 import { formatCurrency, formatDate } from '@/utils/helpers';
 
@@ -28,25 +29,23 @@ export default function HistoryTabs({
     .sort((a, b) => new Date(b.r.data).getTime() - new Date(a.r.data).getTime());
 
   return (
-    <div className="bg-gray-800 rounded-xl border border-gray-700 shadow-lg overflow-hidden">
-      <div className="flex border-b border-gray-700">
+    <Card className="overflow-hidden">
+      <div className="flex border-b border-white/5">
         <button
           onClick={() => setActiveTab('gastos')}
-          className={`flex-1 py-4 text-sm font-bold border-b-2 transition ${
-            activeTab === 'gastos'
+          className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'gastos'
               ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
-              : 'border-transparent text-gray-400 hover:bg-gray-700/50'
-          }`}
+              : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
+            }`}
         >
           GASTOS
         </button>
         <button
           onClick={() => setActiveTab('rendas')}
-          className={`flex-1 py-4 text-sm font-bold border-b-2 transition ${
-            activeTab === 'rendas'
+          className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'rendas'
               ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
-              : 'border-transparent text-gray-400 hover:bg-gray-700/50'
-          }`}
+              : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
+            }`}
         >
           RENDAS
         </button>
@@ -55,24 +54,24 @@ export default function HistoryTabs({
       {activeTab === 'gastos' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
-            <thead className="bg-gray-700/50 text-gray-400 text-xs uppercase">
+            <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
               <tr>
-                <th className="px-6 py-3">Data</th>
-                <th className="px-6 py-3">Descrição</th>
-                <th className="px-6 py-3">Categoria</th>
-                <th className="px-6 py-3 text-right">Valor</th>
-                <th className="px-6 py-3 text-center">Ações</th>
+                <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
+                <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
+                <th className="px-6 py-4 font-semibold tracking-wider">Categoria</th>
+                <th className="px-6 py-4 text-right font-semibold tracking-wider">Valor</th>
+                <th className="px-6 py-4 text-center font-semibold tracking-wider">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
+            <tbody className="divide-y divide-white/5">
               {sortedGastos.map(({ g, index }) => (
-                <tr key={index} className="hover:bg-gray-700/30 transition">
-                  <td className="px-6 py-4 text-sm text-gray-300">
+                <tr key={index} className="hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-4 text-sm text-slate-300">
                     {formatDate(g.data)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium">{g.desc}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-slate-200">{g.desc}</td>
                   <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs">
+                    <span className="px-2 py-1 bg-white/5 border border-white/10 text-slate-300 rounded text-xs shadow-sm">
                       {g.categoria}
                     </span>
                   </td>
@@ -82,7 +81,7 @@ export default function HistoryTabs({
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => onDeleteGasto(index)}
-                      className="text-gray-500 hover:text-rose-500 transition"
+                      className="text-slate-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -110,28 +109,28 @@ export default function HistoryTabs({
       {activeTab === 'rendas' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
-            <thead className="bg-gray-700/50 text-gray-400 text-xs uppercase">
+            <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
               <tr>
-                <th className="px-6 py-3">Data</th>
-                <th className="px-6 py-3">Descrição</th>
-                <th className="px-6 py-3 text-right">Valor</th>
-                <th className="px-6 py-3 text-center">Ações</th>
+                <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
+                <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
+                <th className="px-6 py-4 text-right font-semibold tracking-wider">Valor</th>
+                <th className="px-6 py-4 text-center font-semibold tracking-wider">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700">
+            <tbody className="divide-y divide-white/5">
               {sortedRendas.map(({ r, index }) => (
-                <tr key={index} className="hover:bg-gray-700/30 transition">
-                  <td className="px-6 py-4 text-sm text-gray-300">
+                <tr key={index} className="hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-4 text-sm text-slate-300">
                     {formatDate(r.data)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium">{r.desc}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-slate-200">{r.desc}</td>
                   <td className="px-6 py-4 text-sm text-right font-bold text-emerald-400">
                     {formatCurrency(r.valor)}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => onDeleteRenda(index)}
-                      className="text-gray-500 hover:text-rose-500 transition"
+                      className="text-slate-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +154,6 @@ export default function HistoryTabs({
           </table>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
