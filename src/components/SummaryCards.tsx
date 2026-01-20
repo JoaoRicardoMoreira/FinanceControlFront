@@ -24,8 +24,8 @@ export default function SummaryCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Saldo no Período</p>
-        <h2 className="text-3xl font-bold text-slate-100">{formatCurrency(saldo)}</h2>
+        <p className="text-zinc-400 text-sm mb-1">Saldo no Período</p>
+        <h2 className="text-3xl font-bold text-zinc-100">{formatCurrency(saldo)}</h2>
         <div
           className={`mt-2 text-xs font-medium px-2 py-1 rounded-full inline-block ${saldo >= 0
             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_-3px_rgba(16,185,129,0.3)]'
@@ -37,7 +37,7 @@ export default function SummaryCards({
       </Card>
 
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Renda no Período</p>
+        <p className="text-zinc-400 text-sm mb-1">Renda no Período</p>
         <h2 className="text-3xl font-bold text-emerald-400">{formatCurrency(totalRenda)}</h2>
         <button
           onClick={onOpenRenda}
@@ -60,7 +60,7 @@ export default function SummaryCards({
       </Card>
 
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Gasto vs Meta (Período)</p>
+        <p className="text-zinc-400 text-sm mb-1">Gasto vs Meta (Período)</p>
         <h2 className="text-3xl font-bold text-rose-400">{formatCurrency(totalGasto)}</h2>
         <div className="w-full bg-white/5 rounded-full h-2 mt-3 border border-white/5 overflow-hidden">
           <div

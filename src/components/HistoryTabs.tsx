@@ -34,8 +34,8 @@ export default function HistoryTabs({
         <button
           onClick={() => setActiveTab('gastos')}
           className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'gastos'
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
-              : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
+            ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
+            : 'border-transparent text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
             }`}
         >
           GASTOS
@@ -43,8 +43,8 @@ export default function HistoryTabs({
         <button
           onClick={() => setActiveTab('rendas')}
           className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'rendas'
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
-              : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
+            ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
+            : 'border-transparent text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
             }`}
         >
           RENDAS
@@ -54,7 +54,7 @@ export default function HistoryTabs({
       {activeTab === 'gastos' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
-            <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
+            <thead className="bg-zinc-900/50 text-zinc-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
               <tr>
                 <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
                 <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
@@ -66,12 +66,12 @@ export default function HistoryTabs({
             <tbody className="divide-y divide-white/5">
               {sortedGastos.map(({ g, index }) => (
                 <tr key={index} className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-sm text-slate-300">
+                  <td className="px-6 py-4 text-sm text-zinc-300">
                     {formatDate(g.data)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium text-slate-200">{g.desc}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-zinc-200">{g.desc}</td>
                   <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-white/5 border border-white/10 text-slate-300 rounded text-xs shadow-sm">
+                    <span className="px-2 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded text-xs shadow-sm">
                       {g.categoria}
                     </span>
                   </td>
@@ -81,7 +81,7 @@ export default function HistoryTabs({
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => onDeleteGasto(index)}
-                      className="text-slate-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
+                      className="text-zinc-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@ export default function HistoryTabs({
       {activeTab === 'rendas' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
-            <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
+            <thead className="bg-zinc-900/50 text-zinc-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
               <tr>
                 <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
                 <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
@@ -120,17 +120,17 @@ export default function HistoryTabs({
             <tbody className="divide-y divide-white/5">
               {sortedRendas.map(({ r, index }) => (
                 <tr key={index} className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-sm text-slate-300">
+                  <td className="px-6 py-4 text-sm text-zinc-300">
                     {formatDate(r.data)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium text-slate-200">{r.desc}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-zinc-200">{r.desc}</td>
                   <td className="px-6 py-4 text-sm text-right font-bold text-emerald-400">
                     {formatCurrency(r.valor)}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => onDeleteRenda(index)}
-                      className="text-slate-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
+                      className="text-zinc-500 hover:text-rose-500 transition-colors p-1.5 hover:bg-rose-500/10 rounded-lg"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

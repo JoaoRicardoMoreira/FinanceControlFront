@@ -61,55 +61,55 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
       </h3>
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div>
-          <label className="block text-sm font-medium text-slate-400 mb-1.5">Descrição</label>
+          <label className="block text-sm font-medium text-zinc-400 mb-1.5">Descrição</label>
           <input
             type="text"
             value={form.desc}
             onChange={(e) => setForm({ ...form, desc: e.target.value })}
             required
-            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-slate-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all placeholder:text-slate-600 hover:bg-slate-900/70"
+            className="w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-zinc-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all placeholder:text-zinc-600 hover:bg-zinc-900/70"
             placeholder="Ex: Compras no Supermercado"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-400 mb-1.5">Valor (R$)</label>
+            <label className="block text-sm font-medium text-zinc-400 mb-1.5">Valor (R$)</label>
             <input
               type="number"
               value={form.valor}
               onChange={(e) => setForm({ ...form, valor: e.target.value })}
               step="0.01"
               required
-              className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-slate-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all placeholder:text-slate-600 hover:bg-slate-900/70"
+              className="w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-zinc-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all placeholder:text-zinc-600 hover:bg-zinc-900/70"
               placeholder="0,00"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-400 mb-1.5">Data</label>
+            <label className="block text-sm font-medium text-zinc-400 mb-1.5">Data</label>
             <input
               type="date"
               value={form.data}
               onChange={(e) => setForm({ ...form, data: e.target.value })}
               required
-              className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-slate-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all cursor-pointer hover:bg-slate-900/70"
+              className="w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-zinc-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all cursor-pointer hover:bg-zinc-900/70"
             />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-400 mb-1.5">Categoria</label>
+          <label className="block text-sm font-medium text-zinc-400 mb-1.5">Categoria</label>
           <div className="relative">
             <select
               value={form.categoria}
               onChange={(e) => setForm({ ...form, categoria: e.target.value })}
-              className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-slate-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all appearance-none cursor-pointer hover:bg-slate-900/70"
+              className="w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-zinc-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all appearance-none cursor-pointer hover:bg-zinc-900/70"
             >
               {CATEGORIES.map((cat) => (
-                <option key={cat} value={cat} className="bg-slate-900 text-slate-200 py-2">
+                <option key={cat} value={cat} className="bg-zinc-900 text-zinc-200 py-2">
                   {cat}
                 </option>
               ))}
             </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>

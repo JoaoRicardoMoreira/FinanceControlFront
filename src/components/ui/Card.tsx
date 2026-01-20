@@ -13,12 +13,13 @@ export default function Card({ children, className, hoverEffect = false }: CardP
     return (
         <div
             className={cn(
-                'relative overflow-hidden',
-                'bg-slate-900/30 backdrop-blur-xl',
-                'border border-white/5',
+                'relative overflow-hidden group',
+                'bg-transparent',
+                'border border-transparent',
                 'rounded-2xl',
-                'shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]',
-                hoverEffect && 'transition-all duration-300 hover:bg-slate-900/40 hover:border-white/10 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.45)] hover:-translate-y-1',
+                'transition-all duration-300',
+                hoverEffect && 'hover:bg-zinc-900/80 hover:border-zinc-800 hover:shadow-2xl hover:scale-[1.01] hover:backdrop-blur-xl',
+                !hoverEffect && 'bg-zinc-900/20 border-white/5', // Fallback for non-hover cards if any
                 className
             )}
         >

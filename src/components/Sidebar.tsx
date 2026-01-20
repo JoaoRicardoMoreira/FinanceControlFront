@@ -108,7 +108,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
       <aside
         className={`
           fixed lg:sticky top-0 left-0 h-screen 
-          bg-slate-900/20 backdrop-blur-md border-r border-white/5
+          bg-zinc-950/80 backdrop-blur-md border-r border-zinc-900
           transition-all duration-300 z-40
           ${isCollapsed ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}
           ${isCollapsed ? 'lg:w-20' : 'w-64'}
@@ -125,7 +125,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
             )}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden lg:block p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              className="hidden lg:block p-2 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -154,8 +154,8 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
                     w-full flex items-center gap-3 px-4 py-3 rounded-xl
                     transition-all duration-300 group relative overflow-hidden
                     ${isActive
-                      ? 'bg-blue-500/10 text-blue-400'
-                      : 'text-slate-400 hover:bg-white/5 hover:text-slate-100'
+                      ? 'text-white'
+                      : 'text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200'
                     }
                   `}
                 >
@@ -189,7 +189,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
           {/* Footer Info */}
           {!isCollapsed && (
             <div className="mt-auto pt-4 border-t border-white/5">
-              <p className="text-xs text-slate-600 text-center">
+              <p className="text-xs text-zinc-600 text-center">
                 Finance Control v1.0
               </p>
             </div>

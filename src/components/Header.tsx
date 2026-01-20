@@ -49,17 +49,17 @@ export default function Header({
     <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
       <div>
         <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-500">Controle Financeiro</h1>
-        <p className="text-slate-400">Gerencie suas finanças de forma simples e eficiente</p>
+        <p className="text-zinc-400">Gerencie suas finanças de forma simples e eficiente</p>
       </div>
       <div className="flex flex-wrap justify-center gap-2">
-        <div className="flex bg-slate-900/40 p-1 rounded-lg border border-white/5 backdrop-blur-sm mr-2 shadow-inner">
+        <div className="flex bg-zinc-900/40 p-1 rounded-lg border border-white/5 backdrop-blur-sm mr-2 shadow-inner">
           <select
             value={month}
             onChange={(e) => onMonthChange(Number(e.target.value))}
-            className="bg-transparent text-sm px-2 py-1 outline-none border-r border-white/10 text-slate-200 cursor-pointer hover:text-white"
+            className="bg-transparent text-sm px-2 py-1 outline-none border-r border-white/10 text-zinc-200 cursor-pointer hover:text-white"
           >
             {MONTHS.map((m, i) => (
-              <option key={i} value={i + 1} className="bg-slate-900 text-slate-200">
+              <option key={i} value={i + 1} className="bg-zinc-900 text-zinc-200">
                 {m}
               </option>
             ))}
@@ -67,10 +67,10 @@ export default function Header({
           <select
             value={year}
             onChange={(e) => onYearChange(Number(e.target.value))}
-            className="bg-transparent text-sm px-2 py-1 outline-none text-slate-200 cursor-pointer hover:text-white"
+            className="bg-transparent text-sm px-2 py-1 outline-none text-zinc-200 cursor-pointer hover:text-white"
           >
             {yearOptions.map((y) => (
-              <option key={y} value={y} className="bg-slate-900 text-slate-200">
+              <option key={y} value={y} className="bg-zinc-900 text-zinc-200">
                 {y}
               </option>
             ))}
@@ -78,7 +78,7 @@ export default function Header({
         </div>
         <button
           onClick={onOpenRecorrentes}
-          className="bg-slate-800/50 hover:bg-slate-700/50 border border-white/5 text-slate-200 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm shadow-sm backdrop-blur-sm"
+          className="bg-zinc-800/50 hover:bg-zinc-700/50 border border-white/5 text-zinc-200 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm shadow-sm backdrop-blur-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
