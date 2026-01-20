@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export type SidebarSection = 'dashboard' | 'graficos' | 'metas' | 'openfinance';
+export type SidebarSection = 'dashboard' | 'graficos' | 'metas' | 'openfinance' | 'conta';
 
 interface SidebarProps {
   activeSection: SidebarSection;
@@ -78,6 +78,24 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
         </svg>
       ),
       badge: 'Soon',
+    },
+    {
+      id: 'conta' as SidebarSection,
+      label: 'Minha Conta',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
     },
   ];
 

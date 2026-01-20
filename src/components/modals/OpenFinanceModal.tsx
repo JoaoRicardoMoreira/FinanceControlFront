@@ -41,7 +41,7 @@ export default function OpenFinanceModal({ open, onClose }: OpenFinanceModalProp
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
+          <h3 className="text-xl sm:text-2xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
             <span className="bg-cyan-500/20 text-cyan-400 p-1.5 rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ export default function OpenFinanceModal({ open, onClose }: OpenFinanceModalProp
           </p>
           <button
             onClick={onClose}
-            className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 py-3 rounded-xl transition"
+            className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white py-3 rounded-xl transition"
           >
             Fechar
           </button>

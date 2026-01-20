@@ -24,8 +24,8 @@ export default function SummaryCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Saldo no Período</p>
-        <h2 className="text-3xl font-bold text-slate-100">{formatCurrency(saldo)}</h2>
+        <p className="text-gray-600 dark:text-slate-400 text-sm mb-1">Saldo no Período</p>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-slate-100">{formatCurrency(saldo)}</h2>
         <div
           className={`mt-2 text-xs font-medium px-2 py-1 rounded-full inline-block ${saldo >= 0
             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_-3px_rgba(16,185,129,0.3)]'
@@ -37,11 +37,11 @@ export default function SummaryCards({
       </Card>
 
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Renda no Período</p>
+        <p className="text-gray-600 dark:text-slate-400 text-sm mb-1">Renda no Período</p>
         <h2 className="text-3xl font-bold text-emerald-400">{formatCurrency(totalRenda)}</h2>
         <button
           onClick={onOpenRenda}
-          className="mt-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm"
+          className="hidden md:flex mt-3 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 px-4 py-2 rounded-lg transition items-center gap-2 text-sm"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +60,9 @@ export default function SummaryCards({
       </Card>
 
       <Card className="p-6">
-        <p className="text-slate-400 text-sm mb-1">Gasto vs Meta (Período)</p>
+        <p className="text-gray-600 dark:text-slate-400 text-sm mb-1">Gasto vs Meta (Período)</p>
         <h2 className="text-3xl font-bold text-rose-400">{formatCurrency(totalGasto)}</h2>
-        <div className="w-full bg-white/5 rounded-full h-2 mt-3 border border-white/5 overflow-hidden">
+        <div className="w-full bg-gray-200 dark:bg-white/5 rounded-full h-2 mt-3 border border-gray-300 dark:border-white/5 overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-500 relative ${isOverBudget ? 'bg-rose-500' : 'bg-emerald-500'
               }`}

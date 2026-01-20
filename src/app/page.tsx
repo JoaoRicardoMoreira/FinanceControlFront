@@ -14,8 +14,9 @@ import RendaModal from '@/components/modals/RendaModal';
 import RecurrenceModal from '@/components/modals/RecurrenceModal';
 import MetaModal from '@/components/modals/MetaModal';
 import GastoModal from '@/components/modals/GastoModal';
-import ContaModal from '@/components/modals/ContaModal';
+import AccountPage from '@/components/AccountPage';
 import OpenFinanceModal from '@/components/modals/OpenFinanceModal';
+import TransactionModal from '@/components/modals/TransactionModal';
 import MobileBottomNav from '@/components/MobileBottomNav';
 import { filterByMonth, sumTransactions, groupByCategory } from '@/utils/helpers';
 import { CATEGORIES } from '@/types';
@@ -44,8 +45,8 @@ export default function Home() {
     const [recurrenceModalOpen, setRecurrenceModalOpen] = useState(false);
     const [metaModalOpen, setMetaModalOpen] = useState(false);
     const [gastoModalOpen, setGastoModalOpen] = useState(false);
-    const [contaModalOpen, setContaModalOpen] = useState(false);
-    const [openFinanceModalOpen, setOpenFinanceModalOpen] = useState(false);
+        const [openFinanceModalOpen, setOpenFinanceModalOpen] = useState(false);
+    const [transactionModalOpen, setTransactionModalOpen] = useState(false);
     const [metaCategory, setMetaCategory] = useState('');
     const [metaCurrentValue, setMetaCurrentValue] = useState(0);
     const [activeSection, setActiveSection] = useState<SidebarSection>('dashboard');
@@ -150,7 +151,6 @@ export default function Home() {
         setRecurrenceModalOpen(false);
         setMetaModalOpen(false);
         setGastoModalOpen(false);
-        setContaModalOpen(false);
         setOpenFinanceModalOpen(false);
     };
 
@@ -169,7 +169,7 @@ export default function Home() {
 
             {/* Main Content */}
             <div className="flex-1 overflow-x-hidden">
-                <div className="container mx-auto px-4 py-8 max-w-7xl">
+                <div className="container mx-auto px-4 py-8 pb-24 md:pb-8 max-w-7xl">
                     <Header
                         month={filters.month}
                         year={filters.year}
@@ -193,7 +193,7 @@ export default function Home() {
                                 onOpenRenda={() => setRendaModalOpen(true)}
                             />
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                <div className="lg:col-span-1 space-y-6">
+                                <div className="hidden md:block lg:col-span-1 space-y-6">
                                     <ExpenseForm onAddExpense={handleAddExpense} />
                                 </div>
                                 <div className="lg:col-span-2 space-y-8">
@@ -218,6 +218,8 @@ export default function Home() {
                                 categories={chartData.categories}
                                 gastosPorCat={chartData.gastosPorCat}
                                 metasPorCat={chartData.metasPorCat}
+                                allGastos={gastos}
+                                allRendas={rendas}
                             />
                         </div>
                     )}
@@ -246,6 +248,19 @@ export default function Home() {
                                 </span>
                             </div>
                             <OpenFinancePlaceholder />
+                        </div>
+                    )}
+
+                    {/* CONTA VIEW */}
+                    {activeSection === 'conta' && (
+                        <div className="space-y-6 animate-in fade-in duration-500">
+                            <div className="flex items-center gap-3 mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Minha Conta</h2>
+                            </div>
+                            <AccountPage
+                                onExportCsv={handleExportCsv}
+                                onImportCsv={handleImportCsv}
+                            />
                         </div>
                     )}
                 </div>
@@ -283,22 +298,25 @@ export default function Home() {
                 }}
             />
 
-            <ContaModal
-                open={contaModalOpen}
-                onClose={closeModals}
-            />
-
             <OpenFinanceModal
                 open={openFinanceModalOpen}
                 onClose={closeModals}
             />
 
+            <TransactionModal
+                open={transactionModalOpen}
+                onClose={() => setTransactionModalOpen(false)}
+                onAddGasto={handleAddExpense}
+                onAddRenda={handleAddIncome}
+                onAddRecurrence={addRecurrence}
+            />
+
             <MobileBottomNav
-                onOpenGasto={() => setGastoModalOpen(true)}
-                onOpenRenda={() => setRendaModalOpen(true)}
-                onOpenRecorrentes={() => setRecurrenceModalOpen(true)}
-                onOpenConta={() => setContaModalOpen(true)}
-                onOpenFinance={() => setOpenFinanceModalOpen(true)}
+                onOpenTransaction={() => setTransactionModalOpen(true)}
+                onGoToConta={() => setActiveSection('conta')}
+                onGoToMetas={() => setActiveSection('metas')}
+                onGoToGraficos={() => setActiveSection('graficos')}
+                onGoToOpenFinance={() => setActiveSection('openfinance')}
             />
         </div>
     );

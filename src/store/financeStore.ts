@@ -49,10 +49,42 @@ export const useFinanceStore = create<FinanceStore>()(
           gastos: [...state.gastos, gasto],
         })),
 
-      addRecurrence: (recorrente) =>
-        set((state) => ({
-          recorrentes: [...state.recorrentes, { ...recorrente, lastProcessed: '' }],
-        })),
+      addRecurrence: (recorrente) => {
+        const now = new Date();
+        const currentMonthYear = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        const dia = String(recorrente.dia).padStart(2, '0');
+        const data = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${dia}`;
+
+        set((state) => {
+          const newState: Partial<FinanceState & { recorrentes: Recurrence[] }> = {
+            recorrentes: [...state.recorrentes, { ...recorrente, lastProcessed: currentMonthYear }],
+          };
+
+          // Immediately create the transaction for the current month
+          if (recorrente.tipo === 'gasto') {
+            newState.gastos = [
+              ...state.gastos,
+              {
+                desc: `[REC] ${recorrente.desc}`,
+                valor: recorrente.valor,
+                data,
+                categoria: recorrente.categoria,
+              },
+            ];
+          } else {
+            newState.rendas = [
+              ...state.rendas,
+              {
+                desc: `[REC] ${recorrente.desc}`,
+                valor: recorrente.valor,
+                data,
+              },
+            ];
+          }
+
+          return newState;
+        });
+      },
 
       deleteGasto: (index) =>
         set((state) => ({
