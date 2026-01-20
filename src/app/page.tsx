@@ -13,6 +13,10 @@ import HistoryTabs from '@/components/HistoryTabs';
 import RendaModal from '@/components/modals/RendaModal';
 import RecurrenceModal from '@/components/modals/RecurrenceModal';
 import MetaModal from '@/components/modals/MetaModal';
+import GastoModal from '@/components/modals/GastoModal';
+import ContaModal from '@/components/modals/ContaModal';
+import OpenFinanceModal from '@/components/modals/OpenFinanceModal';
+import MobileBottomNav from '@/components/MobileBottomNav';
 import { filterByMonth, sumTransactions, groupByCategory } from '@/utils/helpers';
 import { CATEGORIES } from '@/types';
 
@@ -39,6 +43,9 @@ export default function Home() {
     const [rendaModalOpen, setRendaModalOpen] = useState(false);
     const [recurrenceModalOpen, setRecurrenceModalOpen] = useState(false);
     const [metaModalOpen, setMetaModalOpen] = useState(false);
+    const [gastoModalOpen, setGastoModalOpen] = useState(false);
+    const [contaModalOpen, setContaModalOpen] = useState(false);
+    const [openFinanceModalOpen, setOpenFinanceModalOpen] = useState(false);
     const [metaCategory, setMetaCategory] = useState('');
     const [metaCurrentValue, setMetaCurrentValue] = useState(0);
     const [activeSection, setActiveSection] = useState<SidebarSection>('dashboard');
@@ -142,6 +149,9 @@ export default function Home() {
         setRendaModalOpen(false);
         setRecurrenceModalOpen(false);
         setMetaModalOpen(false);
+        setGastoModalOpen(false);
+        setContaModalOpen(false);
+        setOpenFinanceModalOpen(false);
     };
 
     const handleExportCsv = () => {
@@ -261,6 +271,34 @@ export default function Home() {
                 currentValue={metaCurrentValue}
                 onClose={closeModals}
                 onSave={handleSaveMeta}
+            />
+
+            <GastoModal
+                open={gastoModalOpen}
+                onClose={closeModals}
+                onSubmit={handleAddExpense}
+                onOpenRenda={() => {
+                    setGastoModalOpen(false);
+                    setRendaModalOpen(true);
+                }}
+            />
+
+            <ContaModal
+                open={contaModalOpen}
+                onClose={closeModals}
+            />
+
+            <OpenFinanceModal
+                open={openFinanceModalOpen}
+                onClose={closeModals}
+            />
+
+            <MobileBottomNav
+                onOpenGasto={() => setGastoModalOpen(true)}
+                onOpenRenda={() => setRendaModalOpen(true)}
+                onOpenRecorrentes={() => setRecurrenceModalOpen(true)}
+                onOpenConta={() => setContaModalOpen(true)}
+                onOpenFinance={() => setOpenFinanceModalOpen(true)}
             />
         </div>
     );

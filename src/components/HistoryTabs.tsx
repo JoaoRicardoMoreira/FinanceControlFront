@@ -29,14 +29,24 @@ export default function HistoryTabs({
     .sort((a, b) => new Date(b.r.data).getTime() - new Date(a.r.data).getTime());
 
   return (
+<<<<<<< HEAD
     <Card className="overflow-hidden">
       <div className="flex border-b border-white/5">
+=======
+    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden">
+      <div className="flex border-b border-gray-200 dark:border-gray-700">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
         <button
           onClick={() => setActiveTab('gastos')}
           className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'gastos'
               ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
+<<<<<<< HEAD
               : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
             }`}
+=======
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+          }`}
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
         >
           GASTOS
         </button>
@@ -44,8 +54,13 @@ export default function HistoryTabs({
           onClick={() => setActiveTab('rendas')}
           className={`flex-1 py-4 text-sm font-bold border-b-2 transition-all ${activeTab === 'rendas'
               ? 'border-emerald-500 text-emerald-400 bg-emerald-500/5'
+<<<<<<< HEAD
               : 'border-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200'
             }`}
+=======
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+          }`}
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
         >
           RENDAS
         </button>
@@ -54,7 +69,11 @@ export default function HistoryTabs({
       {activeTab === 'gastos' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
+<<<<<<< HEAD
             <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
+=======
+            <thead className="bg-gray-100 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 text-xs uppercase">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
               <tr>
                 <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
                 <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
@@ -63,15 +82,26 @@ export default function HistoryTabs({
                 <th className="px-6 py-4 text-center font-semibold tracking-wider">Ações</th>
               </tr>
             </thead>
+<<<<<<< HEAD
             <tbody className="divide-y divide-white/5">
               {sortedGastos.map(({ g, index }) => (
                 <tr key={index} className="hover:bg-white/5 transition-colors">
                   <td className="px-6 py-4 text-sm text-slate-300">
+=======
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              {sortedGastos.map(({ g, index }) => (
+                <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition">
+                  <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
                     {formatDate(g.data)}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-slate-200">{g.desc}</td>
                   <td className="px-6 py-4">
+<<<<<<< HEAD
                     <span className="px-2 py-1 bg-white/5 border border-white/10 text-slate-300 rounded text-xs shadow-sm">
+=======
+                    <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
                       {g.categoria}
                     </span>
                   </td>
@@ -109,7 +139,11 @@ export default function HistoryTabs({
       {activeTab === 'rendas' && (
         <div className="overflow-x-auto custom-scrollbar max-h-[400px]">
           <table className="w-full text-left">
+<<<<<<< HEAD
             <thead className="bg-slate-900/50 text-slate-400 text-xs uppercase backdrop-blur-sm sticky top-0 z-10">
+=======
+            <thead className="bg-gray-100 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 text-xs uppercase">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
               <tr>
                 <th className="px-6 py-4 font-semibold tracking-wider">Data</th>
                 <th className="px-6 py-4 font-semibold tracking-wider">Descrição</th>
@@ -117,10 +151,17 @@ export default function HistoryTabs({
                 <th className="px-6 py-4 text-center font-semibold tracking-wider">Ações</th>
               </tr>
             </thead>
+<<<<<<< HEAD
             <tbody className="divide-y divide-white/5">
               {sortedRendas.map(({ r, index }) => (
                 <tr key={index} className="hover:bg-white/5 transition-colors">
                   <td className="px-6 py-4 text-sm text-slate-300">
+=======
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              {sortedRendas.map(({ r, index }) => (
+                <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition">
+                  <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
                     {formatDate(r.data)}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-slate-200">{r.desc}</td>

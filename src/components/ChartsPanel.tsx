@@ -126,8 +126,13 @@ export default function ChartsPanel({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<<<<<<< HEAD
       <Card className="p-6">
         <h4 className="text-sm font-medium text-slate-400 mb-6 uppercase tracking-wider text-center">
+=======
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg">
+        <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4 uppercase tracking-wider">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
           Gastos por Categoria
         </h4>
         <div className="h-64 relative">
@@ -137,10 +142,16 @@ export default function ChartsPanel({
             </div> */}
           <Doughnut data={doughnutData} options={doughnutOptions} />
         </div>
+<<<<<<< HEAD
       </Card>
 
       <Card className="p-6">
         <h4 className="text-sm font-medium text-slate-400 mb-6 uppercase tracking-wider text-center">
+=======
+      </div>
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg">
+        <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4 uppercase tracking-wider">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
           Meta vs Realizado
         </h4>
         <div className="h-64">

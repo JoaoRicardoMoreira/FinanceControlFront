@@ -1,5 +1,7 @@
 'use client';
 
+import ThemeToggle from './ThemeToggle';
+
 interface HeaderProps {
   month: number;
   year: number;
@@ -46,8 +48,12 @@ export default function Header({
   };
 
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+    <header className="relative flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+      <div className="absolute top-0 right-0">
+        <ThemeToggle />
+      </div>
       <div>
+<<<<<<< HEAD
         <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-500">Controle Financeiro</h1>
         <p className="text-slate-400">Gerencie suas finanças de forma simples e eficiente</p>
       </div>
@@ -60,6 +66,20 @@ export default function Header({
           >
             {MONTHS.map((m, i) => (
               <option key={i} value={i + 1} className="bg-slate-900 text-slate-200">
+=======
+        <h1 className="text-3xl font-bold text-emerald-400">Controle Financeiro</h1>
+        <p className="text-gray-500 dark:text-gray-400">Gerencie suas finanças de forma simples e eficiente</p>
+      </div>
+      <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex bg-gray-200 dark:bg-gray-800 p-1 rounded-lg border border-gray-300 dark:border-gray-700 mr-2">
+          <select
+            value={month}
+            onChange={(e) => onMonthChange(Number(e.target.value))}
+            className="bg-transparent text-sm px-2 py-1 outline-none border-r border-gray-300 dark:border-gray-700"
+          >
+            {MONTHS.map((m, i) => (
+              <option key={i} value={i + 1} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
                 {m}
               </option>
             ))}
@@ -70,7 +90,11 @@ export default function Header({
             className="bg-transparent text-sm px-2 py-1 outline-none text-slate-200 cursor-pointer hover:text-white"
           >
             {yearOptions.map((y) => (
+<<<<<<< HEAD
               <option key={y} value={y} className="bg-slate-900 text-slate-200">
+=======
+              <option key={y} value={y} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
                 {y}
               </option>
             ))}
@@ -78,7 +102,11 @@ export default function Header({
         </div>
         <button
           onClick={onOpenRecorrentes}
+<<<<<<< HEAD
           className="bg-slate-800/50 hover:bg-slate-700/50 border border-white/5 text-slate-200 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm shadow-sm backdrop-blur-sm"
+=======
+          className="hidden md:flex bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition items-center gap-2 text-sm"
+>>>>>>> 4a7e8d9 (feat: add tema claro e menu no mobile)
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
