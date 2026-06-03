@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:app": "next build",
+    "app": "npm run build:app && npx --yes serve@14 out -l 3000",
     "start": "next start",
     "lint": "next lint"
   },

@@ -1,4 +1,5 @@
 import { Transaction } from '@/types';
+import { createTransaction } from '@/utils/backup';
 
 export const filterByMonth = (
   transactions: Transaction[],
@@ -49,60 +50,90 @@ export const getYearOptions = (): number[] => {
 };
 
 export const exportToCsv = (rendas: Transaction[], gastos: Transaction[]): void => {
-  const headers = 'Tipo,Descrição,Valor,Data,Categoria\n';
+  const headers = 'Tipo,Id,Descrição,Valor,Data,Categoria\n';
   const rendasCsv = rendas
-    .map((r) => `Renda,"${r.desc}",${r.valor},${r.data},`)
+    .map((r) => `Renda,${r.id},"${r.desc}",${r.valor},${r.data},`)
     .join('\n');
   const gastosCsv = gastos
-    .map((g) => `Gasto,"${g.desc}",${g.valor},${g.data},"${g.categoria || ''}"`)
+    .map((g) => `Gasto,${g.id},"${g.desc}",${g.valor},${g.data},"${g.categoria || ''}"`)
     .join('\n');
-  
+
   const csv = headers + rendasCsv + '\n' + gastosCsv;
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
-  
+
   link.setAttribute('href', url);
   link.setAttribute('download', `financas_${new Date().toISOString().split('T')[0]}.csv`);
   link.style.visibility = 'hidden';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 };
 
-export const importFromCsv = (
-  file: File,
-  onSuccess: (rendas: Transaction[], gastos: Transaction[]) => void
-): void => {
-  const reader = new FileReader();
-  
-  reader.onload = (e) => {
-    const text = e.target?.result as string;
-    const lines = text.split('\n').slice(1); // Skip header
-    const rendas: Transaction[] = [];
-    const gastos: Transaction[] = [];
-    
-    lines.forEach((line) => {
-      if (!line.trim()) return;
-      
-      const parts = line.split(',');
-      if (parts.length < 4) return;
-      
-      const tipo = parts[0].trim();
-      const desc = parts[1].replace(/"/g, '').trim();
-      const valor = parseFloat(parts[2].trim());
-      const data = parts[3].trim();
-      const categoria = parts[4]?.replace(/"/g, '').trim() || undefined;
-      
-      if (tipo === 'Renda') {
-        rendas.push({ desc, valor, data });
-      } else if (tipo === 'Gasto') {
-        gastos.push({ desc, valor, data, categoria });
+export function parseCsvText(text: string): { rendas: Transaction[]; gastos: Transaction[] } {
+  const [headerLine, ...lines] = text.split('\n');
+  const hasIdColumn = headerLine?.toLowerCase().includes('id') ?? false;
+  const rendas: Transaction[] = [];
+  const gastos: Transaction[] = [];
+
+  lines.forEach((line) => {
+    if (!line.trim()) return;
+
+    const parts = line.split(',');
+    const tipo = parts[0]?.trim();
+
+    let desc: string;
+    let valor: number;
+    let data: string;
+    let categoria: string | undefined;
+    let id: string | undefined;
+
+    if (hasIdColumn && parts.length >= 5) {
+      id = parts[1].trim();
+      desc = parts[2].replace(/"/g, '').trim();
+      valor = parseFloat(parts[3].trim());
+      data = parts[4].trim();
+      categoria = parts[5]?.replace(/"/g, '').trim() || undefined;
+    } else if (parts.length >= 4) {
+      desc = parts[1].replace(/"/g, '').trim();
+      valor = parseFloat(parts[2].trim());
+      data = parts[3].trim();
+      categoria = parts[4]?.replace(/"/g, '').trim() || undefined;
+    } else {
+      return;
+    }
+
+    if (tipo === 'Renda') {
+      rendas.push(createTransaction({ id, desc, valor, data }));
+    } else if (tipo === 'Gasto') {
+      gastos.push(
+        createTransaction({
+          id,
+          desc,
+          valor,
+          data,
+          categoria: categoria ?? 'Outros',
+        })
+      );
+    }
+  });
+
+  return { rendas, gastos };
+}
+
+export function readCsvFile(file: File): Promise<{ rendas: Transaction[]; gastos: Transaction[] }> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        resolve(parseCsvText(e.target?.result as string));
+      } catch (err) {
+        reject(err instanceof Error ? err : new Error('Falha ao ler CSV.'));
       }
-    });
-    
-    onSuccess(rendas, gastos);
-  };
-  
-  reader.readAsText(file);
-};
+    };
+    reader.onerror = () => reject(new Error('Não foi possível ler o arquivo.'));
+    reader.readAsText(file);
+  });
+}

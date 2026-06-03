@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export type SidebarSection = 'dashboard' | 'graficos' | 'metas' | 'openfinance';
+export type SidebarSection = 'dashboard' | 'graficos' | 'metas' | 'investimentos' | 'openfinance';
 
 interface SidebarProps {
   activeSection: SidebarSection;
@@ -10,7 +10,15 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  /** Fechado no mobile por padrão — evita overlay cobrindo o conteúdo ao abrir o app. */
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const handleNavigate = (section: SidebarSection) => {
+    onSectionChange(section);
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setIsCollapsed(true);
+    }
+  };
 
   const menuItems = [
     {
@@ -56,6 +64,20 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
             clipRule="evenodd"
           />
+        </svg>
+      ),
+    },
+    {
+      id: 'investimentos' as SidebarSection,
+      label: 'Investimentos',
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
         </svg>
       ),
     },
@@ -149,7 +171,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
               return (
                 <button
                   key={item.id}
-                  onClick={() => onSectionChange(item.id)}
+                  onClick={() => handleNavigate(item.id)}
                   className={`
                     w-full flex items-center gap-3 px-4 py-3 rounded-xl
                     transition-all duration-300 group relative overflow-hidden
@@ -197,11 +219,12 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
         </div>
       </aside>
 
-      {/* Mobile Overlay */}
+      {/* Overlay só atrás da sidebar — conteúdo principal fica clicável/visível à direita */}
       {!isCollapsed && (
         <div
           onClick={() => setIsCollapsed(true)}
-          className="lg:hidden fixed inset-0 bg-black/50 z-30"
+          className="lg:hidden fixed top-0 right-0 bottom-0 left-64 z-30 bg-black/50"
+          aria-hidden
         />
       )}
     </>

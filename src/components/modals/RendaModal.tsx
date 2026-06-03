@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { NewTransaction } from '@/types';
 
 interface RendaModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (renda: { desc: string; valor: number; data: string }) => void;
+  onSubmit: (renda: NewTransaction) => void;
 }
 
 export default function RendaModal({ open, onClose, onSubmit }: RendaModalProps) {

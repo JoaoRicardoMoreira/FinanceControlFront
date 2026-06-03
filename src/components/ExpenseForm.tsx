@@ -1,16 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { CATEGORIES } from '@/types';
+import { CATEGORIES, NewTransaction } from '@/types';
 import Card from '@/components/ui/Card';
 
 interface ExpenseFormProps {
-  onAddExpense: (expense: {
-    desc: string;
-    valor: number;
-    data: string;
-    categoria: string;
-  }) => void;
+  onAddExpense: (expense: NewTransaction) => void;
 }
 
 export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
@@ -68,7 +63,7 @@ export default function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
             onChange={(e) => setForm({ ...form, desc: e.target.value })}
             required
             className="w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2.5 text-zinc-200 focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500/50 outline-none transition-all placeholder:text-zinc-600 hover:bg-zinc-900/70"
-            placeholder="Ex: Compras no Supermercado"
+            placeholder="Ex: Imposto, Compras..."
           />
         </div>
         <div className="grid grid-cols-2 gap-4">

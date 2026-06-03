@@ -4,29 +4,26 @@ import { cn } from '@/utils/cn';
 import { ReactNode } from 'react';
 
 interface CardProps {
-    children: ReactNode;
-    className?: string;
-    hoverEffect?: boolean;
+  children: ReactNode;
+  className?: string;
+  hoverEffect?: boolean;
 }
 
 export default function Card({ children, className, hoverEffect = false }: CardProps) {
-    return (
-        <div
-            className={cn(
-                'relative overflow-hidden group',
-                'bg-transparent',
-                'border border-transparent',
-                'rounded-2xl',
-                'transition-all duration-300',
-                hoverEffect && 'hover:bg-zinc-900/80 hover:border-zinc-800 hover:shadow-2xl hover:scale-[1.01] hover:backdrop-blur-xl',
-                !hoverEffect && 'bg-zinc-900/20 border-white/5', // Fallback for non-hover cards if any
-                className
-            )}
-        >
-            {/* Top Reflection Effect */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-
-            {children}
-        </div>
-    );
+  return (
+    <div
+      className={cn(
+        'relative overflow-hidden rounded-2xl border transition-all duration-300',
+        'bg-zinc-900 border-zinc-800',
+        'shadow-[0_4px_24px_rgba(0,0,0,0.35)]',
+        'max-md:bg-zinc-900 max-md:border-zinc-700 max-md:shadow-[0_6px_28px_rgba(0,0,0,0.5)]',
+        hoverEffect &&
+          'hover:border-zinc-600 hover:bg-zinc-800/90 hover:shadow-xl',
+        className
+      )}
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+      <div className="relative z-[1]">{children}</div>
+    </div>
+  );
 }

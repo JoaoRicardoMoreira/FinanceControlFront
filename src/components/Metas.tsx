@@ -6,13 +6,16 @@ import { formatCurrency } from '@/utils/helpers';
 interface MetasProps {
   metas: MetaMap;
   gastos: Transaction[];
+  /** Gastos lançados + fixos mensais por categoria */
+  gastosPorCategoria?: Record<string, number>;
   onEditMeta: (categoria: string, currentValue: number) => void;
 }
 
 import Card from '@/components/ui/Card';
 
-export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
-  const gastosPorCategoria = (cat: string): number => {
+export default function Metas({ metas, gastos, gastosPorCategoria: gastosPrevistos, onEditMeta }: MetasProps) {
+  const gastoNaCategoria = (cat: string): number => {
+    if (gastosPrevistos) return gastosPrevistos[cat] || 0;
     return gastos
       .filter((g) => g.categoria === cat)
       .reduce((acc, g) => acc + g.valor, 0);
@@ -33,9 +36,14 @@ export default function Metas({ metas, gastos, onEditMeta }: MetasProps) {
         </span>
         Metas por Categoria
       </h3>
+      {gastosPrevistos && (
+        <p className="text-xs text-zinc-500 -mt-4 mb-6">
+          Progresso considera gastos lançados e fixos mensais do período.
+        </p>
+      )}
       <div className="space-y-6">
         {Object.entries(metas).map(([categoria, meta]) => {
-          const gasto = gastosPorCategoria(categoria);
+          const gasto = gastoNaCategoria(categoria);
           const isOverBudget = gasto > meta && meta > 0;
           const progress = meta > 0 ? Math.min((gasto / meta) * 100, 100) : 0;
 
